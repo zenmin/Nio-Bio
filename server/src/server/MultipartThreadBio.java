@@ -19,7 +19,6 @@ public class MultipartThreadBio {
         ServerSocket serverSocket = new ServerSocket(80);
         while (true) {
             Socket accept = serverSocket.accept();
-            System.out.println();
             executorService.execute(() -> {
                 //业务代码块
                 try {
