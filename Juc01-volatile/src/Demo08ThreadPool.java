@@ -37,7 +37,9 @@ public class Demo08ThreadPool {
         // 创建根任务
         ThreadPoolDemo t = new ThreadPoolDemo();
 
-        // 创建线程
+        ThredPoolDemo2 t2 = new ThredPoolDemo2();
+
+        // 创建线程池
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(10);
@@ -51,13 +53,13 @@ public class Demo08ThreadPool {
         // 给线程池分配任务  Callable方式
         for (int i = 0;i < 10 ;i++){
             Future<Integer> future = scheduledExecutorService.schedule(new Callable<Integer>() {
-                int i = 1;
                 @Override
                 public Integer call() throws Exception {
-                    return i + (int)(Math.random() * 100);
+                    System.out.println(Thread.currentThread().getName() );
+                    return 0;
                 }
-            },3,TimeUnit.SECONDS);  // 延时调用
-            System.out.println(Thread.currentThread().getName() + ":" + future.get());
+            }, 3, TimeUnit.SECONDS);  // 延时调用
+            System.out.println(future.get());
         }
 
 
@@ -67,6 +69,17 @@ public class Demo08ThreadPool {
     }
 
 
+
+}
+
+class ThredPoolDemo2 implements Callable{
+
+    private int i  =0 ;
+    @Override
+    public Integer call() {
+        System.out.println(Thread.currentThread().getName() + ": " + i++);
+        return i;
+    }
 
 }
 
