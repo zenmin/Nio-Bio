@@ -1,4 +1,9 @@
+import org.junit.Test;
+
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.*;
+import java.util.stream.LongStream;
 
 /**
  * @Describle This Class Is
@@ -68,6 +73,19 @@ public class Demo08ThreadPool {
         scheduledExecutorService.shutdownNow();
     }
 
+    @Test
+    public void test1(){
+        Instant start = Instant.now();
+        // fork join  java8
+        Long sum = LongStream.rangeClosed(0, 100000000000L).parallel().reduce(0L,Long::sum);
+        System.out.println(sum);
+        Instant end = Instant.now();
+
+        Duration between = Duration.between(start, end);
+
+        System.out.println(between.toMillis());
+
+    }
 
 
 }
